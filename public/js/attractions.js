@@ -9,6 +9,8 @@
 
 var attractionsModule = (function () {
 
+
+
     // application state
 
     var enhanced = {}

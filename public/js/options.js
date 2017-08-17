@@ -8,8 +8,20 @@
  * that attraction's id. Selecting an option looks up the attraction by id,
  * then tells the trip module to add the attraction.
  */
- 
+
 $(function () {
+
+  $.get('/api/restaurants')
+
+  .then(function (restaurants) {
+    console.log('INSIDE GET REQ FOR RESTAURANTS');
+    restaurants.forEach(function(restaurant){
+      console.log(restaurant.name);
+    });
+  })
+
+
+  .catch( console.error.bind(console) );
 
     // jQuery selects
     var $optionsPanel = $('#options-panel');
