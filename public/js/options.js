@@ -11,14 +11,49 @@
 
 $(function () {
 
-  // $.get('/api/restaurants')
+  var rest$ = $.get('/api/restaurants')
 
-  // .then(function (restaurants) {
-  //   console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
-  //   restaurants.forEach(function(restaurant){
-  //     console.log(restaurant.name);
-  //   });
-  // })
+  .then(function (restaurants) {
+    // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
+    return restaurants;
+    // restaurants.forEach(function(restaurant){
+    //   return restaurants;
+    // });
+    // var rest$ = restaurants;
+    // return rest$
+  })
+
+  console.log('REST$ VAR: ',rest$)
+
+  var hotels$ = $.get('/api/hotels')
+
+  .then(function (hotels) {
+    console.log('INSIDE GET REQ FOR HOTELS', hotels);
+
+    return hotels;
+    // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
+    // restaurants.forEach(function(restaurant){
+    //   console.log(restaurant.name);
+    // });
+
+    // var hotels$ = hotels;
+    // return hotels$
+  })
+  console.log('HOTELS$ VAR: ',hotels$)
+
+  var activ$ = $.get('/api/activities')
+
+  .then(function (activities) {
+    // console.log()
+    return activities;
+    // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
+    // restaurants.forEach(function(restaurant){
+    //   console.log(restaurant.name);
+    // });
+
+    // var activ$ = activities;
+    // return activ$
+  })
 
 
   // .catch( console.error.bind(console) );
@@ -34,16 +69,16 @@ $(function () {
   // ~~~~~~~~~~~~~~~~~~~~~~~
 
     // make all the option tags (second arg of `forEach` is a `this` binding)
-    hotels.forEach(makeOption, $hotelSelect);
-    restaurants.forEach(makeOption, $restaurantSelect);
-    activities.forEach(makeOption, $activitySelect);
+    hotels$.forEach(makeOption, $hotelSelect);
+    rest$.forEach(makeOption, $restaurantSelect);
+    activ$.forEach(makeOption, $activitySelect);
 
     // Once you've made AJAX calls to retrieve this information,
     // call attractions.loadEnhancedAttractions in the fashion
     // exampled below in order to integrate it.
-    attractionsModule.loadEnhancedAttractions('hotels', hotels);
-    attractionsModule.loadEnhancedAttractions('restaurants', restaurants);
-    attractionsModule.loadEnhancedAttractions('activities', activities);
+    attractionsModule.loadEnhancedAttractions('hotels', hotels$);
+    attractionsModule.loadEnhancedAttractions('restaurants', rest$);
+    attractionsModule.loadEnhancedAttractions('activities', activ$);
 
     function makeOption(databaseAttraction) {
         var $option = $('<option></option>') // makes a new option tag
