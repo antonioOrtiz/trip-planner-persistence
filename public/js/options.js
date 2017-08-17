@@ -13,10 +13,28 @@ $(function() {
 
 
 
-   var rest$ = $.ajax({ url: '/api/restaurants' }).done(function(restaurants) {
-        console.log('return restaurants', restaurants);
-        return restaurants.responseJSON;
-    });
+  $.ajax({ url: '/api/restaurants' })
+  .done(function(restaurants) {
+    restaurants.forEach(makeOption, $restaurantSelect);
+    attractionsModule.loadEnhancedAttractions('restaurants', restaurants);
+
+
+  });
+
+  $.ajax({ url: '/api/hotels' })
+  .done(function(hotels) {
+    hotels.forEach(makeOption, $hotelSelect);
+    attractionsModule.loadEnhancedAttractions('hotels', hotels);
+  });
+
+  $.ajax({ url: '/api/activities' })
+  .done(function(activities) {
+    activities.forEach(makeOption, $activitySelect);
+    attractionsModule.loadEnhancedAttractions('activities', activities);
+  });
+
+    // rest$.forEach(makeOption, $restaurantSelect);
+    // attractionsModule.loadEnhancedAttractions('restaurants', rest$);
 
     // .then(function (restaurants) {
     //   // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
@@ -75,14 +93,14 @@ $(function() {
 
     // make all the option tags (second arg of `forEach` is a `this` binding)
     // hotels$.forEach(makeOption, $hotelSelect);
-    rest$.forEach(makeOption, $restaurantSelect);
+    // rest$.forEach(makeOption, $restaurantSelect);
     // activ$.forEach(makeOption, $activitySelect);
 
     // Once you've made AJAX calls to retrieve this information,
     // call attractions.loadEnhancedAttractions in the fashion
     // exampled below in order to integrate it.
     // attractionsModule.loadEnhancedAttractions('hotels', hotels$);
-    attractionsModule.loadEnhancedAttractions('restaurants', rest$);
+    // attractionsModule.loadEnhancedAttractions('restaurants', rest$);
     // attractionsModule.loadEnhancedAttractions('activities', activ$);
 
     function makeOption(databaseAttraction) {
