@@ -14,7 +14,7 @@ var Restaurant = require('../../models').Restaurant;
 router.get('/', function(req,res,next) {
   Restaurant.findAll()
   .then(function(restaurants) {
-    res.send(restaurants);
+    res.json(restaurants);
   });
 });
 

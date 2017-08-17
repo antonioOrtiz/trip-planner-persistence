@@ -9,54 +9,59 @@
  * then tells the trip module to add the attraction.
  */
 
-$(function () {
+$(function() {
 
-  var rest$ = $.get('/api/restaurants')
 
-  .then(function (restaurants) {
-    // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
-    return restaurants;
-    // restaurants.forEach(function(restaurant){
+
+   var rest$ = $.ajax({ url: '/api/restaurants' }).done(function(restaurants) {
+        console.log('return restaurants', restaurants);
+        return restaurants.responseJSON;
+    });
+
+    // .then(function (restaurants) {
+    //   // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
     //   return restaurants;
-    // });
-    // var rest$ = restaurants;
-    // return rest$
-  })
+    //   // restaurants.forEach(function(restaurant){
+    //   //   return restaurants;
+    //   // });
+    //   // var rest$ = restaurants;
+    //   // return rest$
+    // })
 
-  console.log('REST$ VAR: ',rest$)
+    // console.log('REST$ VAR: ', rest$)
 
-  var hotels$ = $.get('/api/hotels')
+    // var hotels$ = $.get('/api/hotels')
 
-  .then(function (hotels) {
-    console.log('INSIDE GET REQ FOR HOTELS', hotels);
+    // .then(function (hotels) {
+    //   console.log('INSIDE GET REQ FOR HOTELS', hotels);
 
-    return hotels;
-    // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
-    // restaurants.forEach(function(restaurant){
-    //   console.log(restaurant.name);
-    // });
+    //   return hotels;
+    //   // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
+    //   // restaurants.forEach(function(restaurant){
+    //   //   console.log(restaurant.name);
+    //   // });
 
-    // var hotels$ = hotels;
-    // return hotels$
-  })
-  console.log('HOTELS$ VAR: ',hotels$)
+    //   // var hotels$ = hotels;
+    //   // return hotels$
+    // })
+    // console.log('HOTELS$ VAR: ',hotels$)
 
-  var activ$ = $.get('/api/activities')
+    // var activ$ = $.get('/api/activities')
 
-  .then(function (activities) {
-    // console.log()
-    return activities;
-    // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
-    // restaurants.forEach(function(restaurant){
-    //   console.log(restaurant.name);
-    // });
+    // .then(function (activities) {
+    //   // console.log()
+    //   return activities;
+    //   // console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
+    //   // restaurants.forEach(function(restaurant){
+    //   //   console.log(restaurant.name);
+    //   // });
 
-    // var activ$ = activities;
-    // return activ$
-  })
+    //   // var activ$ = activities;
+    //   // return activ$
+    // })
 
 
-  // .catch( console.error.bind(console) );
+    // .catch( console.error.bind(console) );
 
     // jQuery selects
     var $optionsPanel = $('#options-panel');
@@ -64,31 +69,31 @@ $(function () {
     var $restaurantSelect = $optionsPanel.find('#restaurant-choices');
     var $activitySelect = $optionsPanel.find('#activity-choices');
 
-  // ~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~
     // This looks like a great place to start AJAX work with a request for all attractions. Don't forget that these kinds of requests are async, so we won't have all of the attractions until it comes back, but once it comes back we can make the option tags
-  // ~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~
 
     // make all the option tags (second arg of `forEach` is a `this` binding)
-    hotels$.forEach(makeOption, $hotelSelect);
+    // hotels$.forEach(makeOption, $hotelSelect);
     rest$.forEach(makeOption, $restaurantSelect);
-    activ$.forEach(makeOption, $activitySelect);
+    // activ$.forEach(makeOption, $activitySelect);
 
     // Once you've made AJAX calls to retrieve this information,
     // call attractions.loadEnhancedAttractions in the fashion
     // exampled below in order to integrate it.
-    attractionsModule.loadEnhancedAttractions('hotels', hotels$);
+    // attractionsModule.loadEnhancedAttractions('hotels', hotels$);
     attractionsModule.loadEnhancedAttractions('restaurants', rest$);
-    attractionsModule.loadEnhancedAttractions('activities', activ$);
+    // attractionsModule.loadEnhancedAttractions('activities', activ$);
 
     function makeOption(databaseAttraction) {
         var $option = $('<option></option>') // makes a new option tag
-          .text(databaseAttraction.name)
-          .val(databaseAttraction.id);
+            .text(databaseAttraction.name)
+            .val(databaseAttraction.id);
         this.append($option); // add the option to the specific select
     }
 
     // what to do when the `+` button next to a `select` is clicked
-    $optionsPanel.on('click', 'button[data-action="add"]', function () {
+    $optionsPanel.on('click', 'button[data-action="add"]', function() {
         var $select = $(this).siblings('select');
         var type = $select.data('type'); // from HTML data-type attribute
         var id = $select.find(':selected').val();
