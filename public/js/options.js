@@ -11,17 +11,17 @@
 
 $(function () {
 
-  $.get('/api/restaurants')
+  // $.get('/api/restaurants')
 
-  .then(function (restaurants) {
-    console.log('INSIDE GET REQ FOR RESTAURANTS');
-    restaurants.forEach(function(restaurant){
-      console.log(restaurant.name);
-    });
-  })
+  // .then(function (restaurants) {
+  //   console.log('INSIDE GET REQ FOR RESTAURANTS', restaurants);
+  //   restaurants.forEach(function(restaurant){
+  //     console.log(restaurant.name);
+  //   });
+  // })
 
 
-  .catch( console.error.bind(console) );
+  // .catch( console.error.bind(console) );
 
     // jQuery selects
     var $optionsPanel = $('#options-panel');
